@@ -1,4 +1,4 @@
-package br.com.macvinny.doanddo.model;
+package br.com.macvinny.goanddo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,8 +19,7 @@ public class Person implements Serializable {
 
     public Person() {}
 
-    public Person(Long id, String name, String phone, String email, String title, String imageUrl, String personCode) {
-        this.id = id;
+    public Person(String name, String phone, String email, String title, String imageUrl, String personCode) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,9 +52,7 @@ public class Person implements Serializable {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
     public void setEmail(String email) {
         this.email = email;
