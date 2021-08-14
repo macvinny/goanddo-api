@@ -1,6 +1,6 @@
 package br.com.macvinny.goanddo.service;
 
-import br.com.macvinny.goanddo.exception.UserNotFoundException;
+import br.com.macvinny.goanddo.exception.NotFoundException;
 import br.com.macvinny.goanddo.model.Person;
 import br.com.macvinny.goanddo.repo.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class PersonService {
 
     public Person findPersonById(Long id) {
         return personRepo.findById(id)
-                .orElseThrow(()-> new UserNotFoundException("User by id " + id + " was not found!"));
+                .orElseThrow(()-> new NotFoundException("User by id " + id + " was not found!"));
     }
 
     public List<Person> findAllPersons() {
