@@ -18,8 +18,14 @@ public class InstitutionResource {
 
     @GetMapping("/all")
     public ResponseEntity<List<Institution>> getAllInstitution() {
-        List<Institution> institution = institutionService.findAllInstitution();
-        return new ResponseEntity<>(institution, HttpStatus.OK);
+        List<Institution> institutions = institutionService.findAllInstitution();
+        return new ResponseEntity<>(institutions, HttpStatus.OK);
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<Institution>> getActiveInstitution() {
+        List<Institution> institutions = institutionService.findActiveInstitution();
+        return new ResponseEntity<>(institutions, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")

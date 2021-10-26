@@ -2,40 +2,44 @@ package br.com.macvinny.goanddo.service;
 
 import br.com.macvinny.goanddo.exception.NotFoundException;
 import br.com.macvinny.goanddo.model.Institution;
-import br.com.macvinny.goanddo.repo.InstitutionRepo;
+import br.com.macvinny.goanddo.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class InstitutionService {
-    private final InstitutionRepo institutionRepo;
+    private final InstitutionRepository institutionRepository;
 
     @Autowired
-    public InstitutionService(InstitutionRepo institutionRepo) {
-        this.institutionRepo = institutionRepo;
+    public InstitutionService(InstitutionRepository institutionRepository) {
+        this.institutionRepository = institutionRepository;
     }
 
     public Institution addInstitution(Institution institution) {
-        institution.setInstitutionCode(UUID.randomUUID().toString());
-        return institutionRepo.save(institution);
+        return institutionRepository.save(institution);
     }
 
     public Institution findInstitutionById(Long id) {
-        return institutionRepo.findById(id)
-                .orElseThrow(()-> new NotFoundException("Institution by id " + id + " was not found!"));
+        return institutionRepository.findById(id)
+                .orElseThrow(
+                        ()-> new NotFoundException("Institution by id " + id + " was not found!")
+                );
     }
 
     public List<Institution> findAllInstitution() {
-        return institutionRepo.findAll();
+        return institutionRepository.findAll();
+    }
+
+    public List<Institution> findActiveInstitution() {
+        return institutionRepository.findByActiveTrue();
     }
 
     public Institution updateInstitution(Institution institution) {
-        return institutionRepo.save(institution);
+        return institutionRepository.save(institution);
     }
 
     public void deleteInstitution(Long id) {
-        institutionRepo.deleteById(id);
+        institutionRepository.deleteById(id);
     }
 }

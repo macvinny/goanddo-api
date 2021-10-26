@@ -22,6 +22,12 @@ public class PersonResource {
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<Person>> getActivePerson() {
+        List<Person> persons = personService.findActivePersons();
+        return new ResponseEntity<>(persons, HttpStatus.OK);
+    }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
         Person person = personService.findPersonById(id);

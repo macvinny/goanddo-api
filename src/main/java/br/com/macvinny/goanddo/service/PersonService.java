@@ -2,40 +2,44 @@ package br.com.macvinny.goanddo.service;
 
 import br.com.macvinny.goanddo.exception.NotFoundException;
 import br.com.macvinny.goanddo.model.Person;
-import br.com.macvinny.goanddo.repo.PersonRepo;
+import br.com.macvinny.goanddo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PersonService {
-    private final PersonRepo personRepo;
+    private final PersonRepository personRepository;
 
     @Autowired
-    public PersonService(PersonRepo personRepo) {
-        this.personRepo = personRepo;
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
     }
 
     public Person addPerson(Person person) {
-        person.setPersonCode(UUID.randomUUID().toString());
-        return personRepo.save(person);
+        return personRepository.save(person);
     }
 
     public Person findPersonById(Long id) {
-        return personRepo.findById(id)
-                .orElseThrow(()-> new NotFoundException("User by id " + id + " was not found!"));
+        return personRepository.findById(id)
+                .orElseThrow(
+                        ()-> new NotFoundException("Person by id " + id + " was not found!")
+                );
     }
 
     public List<Person> findAllPersons() {
-        return personRepo.findAll();
+        return personRepository.findAll();
+    }
+
+    public List<Person> findActivePersons() {
+        return personRepository.findByActiveTrue();
     }
 
     public Person updatePerson(Person person) {
-        return personRepo.save(person);
+        return personRepository.save(person);
     }
 
     public void deletePerson(Long id) {
-        personRepo.deleteById(id);
+        personRepository.deleteById(id);
     }
 }
