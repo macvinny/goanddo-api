@@ -8,7 +8,9 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Institution implements Serializable {
