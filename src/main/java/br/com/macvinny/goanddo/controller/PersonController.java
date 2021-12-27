@@ -1,4 +1,4 @@
-package br.com.macvinny.goanddo;
+package br.com.macvinny.goanddo.controller;
 
 import br.com.macvinny.goanddo.model.Person;
 import br.com.macvinny.goanddo.service.PersonService;
@@ -9,10 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/person")
-public class PersonResource {
+public class PersonController {
     private final PersonService personService;
 
-    public PersonResource(PersonService personService) {
+    public PersonController(PersonService personService) {
         this.personService = personService;
     }
 
@@ -31,6 +31,18 @@ public class PersonResource {
     @GetMapping("/find/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
         Person person = personService.findPersonById(id);
+        return new ResponseEntity<>(person, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/cpf/{cpf}")
+    public ResponseEntity<Person> getPersonByCpf(@PathVariable("cpf") String cpf) {
+        Person person = personService.findByCpf(cpf);
+        return new ResponseEntity<>(person, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/email/{email}")
+    public ResponseEntity<Person> getPersonByEmail(@PathVariable("email") String email) {
+        Person person = personService.findByEmail(email);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 

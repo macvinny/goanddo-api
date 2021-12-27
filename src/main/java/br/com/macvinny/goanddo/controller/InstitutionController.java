@@ -1,4 +1,4 @@
-package br.com.macvinny.goanddo;
+package br.com.macvinny.goanddo.controller;
 
 import br.com.macvinny.goanddo.model.Institution;
 import br.com.macvinny.goanddo.service.InstitutionService;
@@ -9,10 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/institution")
-public class InstitutionResource {
+public class InstitutionController {
     private final InstitutionService institutionService;
 
-    public InstitutionResource(InstitutionService institutionService) {
+    public InstitutionController(InstitutionService institutionService) {
         this.institutionService = institutionService;
     }
 
@@ -31,6 +31,18 @@ public class InstitutionResource {
     @GetMapping("/find/{id}")
     public ResponseEntity<Institution> getInstitutionById(@PathVariable("id") Long id) {
         Institution institution = institutionService.findInstitutionById(id);
+        return new ResponseEntity<>(institution, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/cnpj/{cnpj}")
+    public ResponseEntity<Institution> getInstitutionByCnpj(@PathVariable("cnpj") String cnpj) {
+        Institution institution = institutionService.findByCnpj(cnpj);
+        return new ResponseEntity<>(institution, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/email/{email}")
+    public ResponseEntity<Institution> getInstitutionByEmail(@PathVariable("email") String email) {
+        Institution institution = institutionService.findByEmail(email);
         return new ResponseEntity<>(institution, HttpStatus.OK);
     }
 

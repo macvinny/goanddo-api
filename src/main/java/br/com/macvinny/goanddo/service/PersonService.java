@@ -27,6 +27,14 @@ public class PersonService {
                 );
     }
 
+    public Person findByCpf(String cpf) {
+        return personRepository.findByCpf(cpf);
+    }
+
+    public Person findByEmail(String email) {
+        return personRepository.findByEmail(email);
+    }
+
     public List<Person> findAllPersons() {
         return personRepository.findAll();
     }

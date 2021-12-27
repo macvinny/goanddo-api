@@ -27,6 +27,14 @@ public class InstitutionService {
                 );
     }
 
+    public Institution findByCnpj(String cnpj) {
+        return institutionRepository.findByCnpj(cnpj);
+    }
+
+    public Institution findByEmail(String email) {
+        return institutionRepository.findByEmail(email);
+    }
+
     public List<Institution> findAllInstitution() {
         return institutionRepository.findAll();
     }
