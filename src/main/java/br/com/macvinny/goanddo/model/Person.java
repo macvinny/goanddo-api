@@ -1,12 +1,14 @@
 package br.com.macvinny.goanddo.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person implements Serializable {
@@ -14,20 +16,31 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
-    @Column(nullable = false)
+
+    @NotBlank
     private String name;
-    @Column(nullable = false)
+
+    @CPF
+    @NotBlank
+    @Column(unique = true)
     private String cpf;
-    @Column(nullable = false)
+
+    @NotBlank
     private String description;
-    @Column(nullable = false)
+
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
-    @Column(nullable = false)
+
+    @NotBlank
     private String phone;
-    @Column(nullable = false)
+
+    @NotBlank
     private String state;
-    @Column(nullable = false)
+
+    @NotBlank
     private String city;
+
     private boolean active;
-    private String imageUrl;
 }
