@@ -1,7 +1,7 @@
 package br.com.macvinny.goanddo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,27 +13,26 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @NotBlank
-    private String name;
-
-    @CPF
-    @NotBlank
-    @Column(unique = true)
-    private String cpf;
-
-    @NotBlank
-    private String description;
-
     @Email
     @NotBlank
     @Column(unique = true)
     private String email;
+
+    @NotBlank
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String description;
 
     @NotBlank
     private String phone;
